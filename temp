@@ -16,5 +16,12 @@ http://www.rdrop.com/~paulmck/scalability/paper/whymb.2010.06.07c.pdf
 
 
 
+registry=https://repo.huaweicloud.com/repository/npm/
+@ohos:registry=https://repo.harmonyos.com/npm/
+proxy=http://proxy.huawei.com:8080
+https-proxy=http://proxy.huawei.com:8080
+strict_ssl=false
+#ca_files=D:\=Soft=\CA\HuaweiITCAs.crt
+
 
 
