@@ -1,0 +1,19 @@
+
+
+
+C++
+--------------
+
+static int g = 3;
+N<k> nn{};
+nn.show();
+std::cout << k << std::endl;
+
+
+
+
+
+
+
+
+
