@@ -1,0 +1,41 @@
+MOVE事件
+滑动时根据当前手指的偏移量调整scrollY/scrollX
+
+ScrollView.onTouchEvent()：MOVE事件
+	View.overScrollBy()
+		ScrollView.onOverScrolled()
+			View.scrollTo()
+				ScrollView.onScrollChanged()
+
+
+
+--------------------
+UP事件
+手指抬起时
+初始速度为114，大于初始速度时fling，小于初速度时springback
+
+
+1.惯性运动（fling）
+ScrollView.onTouchEvent()：UP事件
+	VelocityTracker.computeCurrentVelocity()：计算初始速度
+	ScrollView.flingWithNestedDispatch()
+		ParentView.dispatchNestedPreFling()
+			ParentView.onNestedPreFling()
+		ParentView.dispatchNestedFling()
+			ParentView.onNestedFling()
+		ScrollView.fling()
+			OverScroller.fling()
+			postInvalidateOnAnimation()
+①OverScroller的fling包含了springback
+②父View不消费此fling，即ParentView.dispatchNestedPreFling()返回false，ScrollView才会fling
+②父View不消费此fling，即ParentView.dispatchNestedPreFling()返回false，ScrollView才会fling
+
+--------------------
+
+2.回弹（springback）
+ScrollView.onTouchEvent()：UP事件
+	VelocityTracker.computeCurrentVelocity()：计算初始速度
+	OverScroller.springBack()
+	postInvalidateOnAnimation()
+如果初速度很小，则不会fling，而是直接springback
+
