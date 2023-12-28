@@ -1,0 +1,70 @@
+package mine.test;
+
+import java.io.*;
+import java.util.Arrays;
+import java.util.Base64;
+
+public class H {
+    public static void main(String[] args) {
+
+        encode();
+//        decode();
+
+
+    }
+
+    private static void decode() {
+
+        try (FileInputStream fis = new FileInputStream(new File("target/classes/onrar_encode"));
+             BufferedInputStream bis = new BufferedInputStream(fis);
+             FileOutputStream fos = new FileOutputStream(new File("target/classes/out_decode"));
+             BufferedOutputStream bos = new BufferedOutputStream(fos)) {
+            byte[] buffer = new byte[1368];
+            int length;
+            Base64.Decoder decoder = Base64.getDecoder();
+            while ((length = bis.read(buffer)) != -1) {
+                System.out.println("length = " + length);
+                if (length != 1368) buffer = Arrays.copyOf(buffer, length);
+
+                byte[] decode = decoder.decode(buffer);
+                System.out.println("decode.length = " + decode.length);
+//                String s = new String(decode);
+//                System.out.println("s = " + s);
+                bos.write(decode);
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void encode() {
+
+
+        try (FileInputStream fis = new FileInputStream(new File("target/classes/onrar"));
+             BufferedInputStream bis = new BufferedInputStream(fis);
+             FileOutputStream fos = new FileOutputStream(new File("target/classes/onrar_encode"));
+             BufferedOutputStream bos = new BufferedOutputStream(fos)) {
+            byte[] buffer = new byte[1024];
+            int length;
+            Base64.Encoder encoder = Base64.getEncoder();
+            while ((length = bis.read(buffer)) != -1) {
+                System.out.println("length = " + length);
+                if (length != 1024) buffer = Arrays.copyOf(buffer, length);
+
+                byte[] encode = encoder.encode(buffer);
+                System.out.println("encode.length = " + encode.length);
+                String s = new String(encode);
+                System.out.println("s = " + s);
+                bos.write(s.getBytes());
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
